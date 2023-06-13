@@ -1,0 +1,16 @@
+
+.changeSelect {
+    display: block !important;
+    border: 2px solid;
+    border-color: var(--border-color-1);
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 400;
+    height: 65px;
+    line-height: 60px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+.ltn__product-tab-content-inner .nice-select{
+    display: none !important;
+}
