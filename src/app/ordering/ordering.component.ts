@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Location} from '@angular/common';
 import { from } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,6 +21,8 @@ export class OrderingComponent implements OnInit {
   countriesLoaded: boolean = false;
   citiesLoaded: boolean = false;
   selectedCity: string = '';
+  selectedCardBoard: string = '';
+  selectedCutType: string = '';
   eleRef: any
   CardboardTypeDDL= [
   'appartment', 'depulex', 'Condos', 'villas'
@@ -29,7 +32,7 @@ export class OrderingComponent implements OnInit {
     ];
 
 
-  constructor(private apiService: ApiService, private formBuilder: FormBuilder, private _location: Location) { 
+  constructor(private apiService: ApiService, private formBuilder: FormBuilder, private _location: Location, private router: Router) { 
     this.formData = this.formBuilder.group({
       CompanyName: ['', Validators.required],
       Email: ['', [Validators.required, Validators.email]],
@@ -37,8 +40,8 @@ export class OrderingComponent implements OnInit {
       Phone: ['', Validators.required],
       ApplicantsName: ['', Validators.required],
       ApplicantsPhone: ['', Validators.required],
-      Country: '',
-      City: '',
+      Country: [''],
+      City: [''],
       Area: '',
       DetailedAddress: '',
       CardboardType: ['', Validators.required],
@@ -124,33 +127,40 @@ export class OrderingComponent implements OnInit {
       this.citiesLoaded = false;
     }
   }
+  onCityChange(city: string){
+    this.selectedCity = city
+  }
   sendFormData(formData: any): void {
-    console.log(formData)
+    formData.value.Country = this.selectedCountry;
+    formData.value.City = this.selectedCity;
+  
+    console.log(formData.value);
+    
     this.apiService.sendOrderReq(formData.value)
       .subscribe(
         response => {
         },
         error => {
-          if(error.status == 200 ){
-            alert("Order added successfully, Email was sent to us, We will review your order and contact you")
-            this._location.back();
-          }
-          else{
-            alert("Please Fill The Required Fields")
+          if (error.status == 200) {
+            alert("Order added successfully. An email has been sent to us. We will review your order and contact you.");
+            this.router.navigateByUrl('/home');
+          } else {
+            alert("Please fill the required fields.");
           }
         }
       );
   }
-  eventChangeCardboard(event: any) {
-    debugger
-    const selectedValue = event.target.value;
-    console.log(selectedValue)
-    this.formData.controls['CardboardType'].patchValue(selectedValue);
+  
+  eventChangeCardboard(selectedValue: string) {
+    console.log(selectedValue);
+    this.selectedCardBoard = selectedValue;
+    this.formData.controls['CardboardType'].setValue(selectedValue);
   }
-  eventChangeCut(event: any) {
-    const selectedValue = event.target.value;
-    console.log(selectedValue)
-    this.formData.controls['CutTypes'].patchValue(selectedValue);
+  
+  eventChangeCut(selectedValue: string) {
+    console.log(selectedValue);
+    this.selectedCutType = selectedValue;
+    this.formData.controls['CutTypes'].setValue(selectedValue);
   }
 
 }

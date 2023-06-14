@@ -14,6 +14,7 @@ export class JobsComponent implements OnInit {
   selectedFile: File | null = null;
   candidateList: any[] = [];
   selectedCandidate: any;
+  selectedCountry: any = '';
   formData!: FormGroup;
   countries: any[] = [];
   countriesLoaded: boolean = false;
@@ -98,7 +99,7 @@ export class JobsComponent implements OnInit {
       formData.append('CandidateEmail', this.formData.value.CandidateEmail);
       formData.append('CandidateMobileNo', this.formData.value.CandidateMobileNo);
       formData.append('CandidateAddress', this.formData.value.CandidateAddress);
-      formData.append('Country', this.formData.value.Country);
+      formData.append('Country', this.selectedCountry);
       formData.append('CandidateJobTitle', this.formData.value.CandidateJobTitle);
       formData.append('CandidateMsg', this.formData.value.CandidateMsg);
       debugger
@@ -144,6 +145,9 @@ export class JobsComponent implements OnInit {
   // }
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
+  }
+  onCountrySelect(value: string): void {
+    this.selectedCountry = value;
   }
 }
 

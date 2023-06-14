@@ -14,6 +14,7 @@ export class SuppliersComponent implements OnInit {
   selectedFile: File | null = null;
   SupplierList: any[] = [];
   selectedSupplier: any;
+  selectedCountry: any = '';
   formData!: FormGroup;
   countries: any[] = [];
   countriesLoaded: boolean = false;
@@ -69,24 +70,30 @@ export class SuppliersComponent implements OnInit {
     );
   }
 
-  sendFormData(formData: any): void {
-    console.log(formData)
-    this.suppliersService.addSupplier(formData.value)
+  sendFormData(): void {
+    const formData = this.formData.value;
+    formData.Country = this.selectedCountry || '';
+    
+    this.suppliersService.addSupplier(formData)
       .subscribe(
         response => {
+          console.log(response);
         },
         error => {
           if (error.status === 200) {
-            console.log(error)
-              alert("Supplier Created successfully")
-              this.router.navigateByUrl('/home');
-            }
-          else{
-          console.log(error.error[0])
+            console.log(error);
+            alert("Supplier Created successfully");
+            this.router.navigateByUrl('/home');
+          } else {
+            console.log(error.error[0]);
             alert(error.error[0]);
           }
         }
       );
+  }
+  
+  onCountrySelect(value: string): void {
+    this.selectedCountry = value;
   }
 }
 

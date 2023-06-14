@@ -1,4 +1,42 @@
+<style>
+    .btn-secondary:hover {
+        background-color: white !important;
+        color: black !important;
+    }
 
+    .btn-secondary:focus {
+        background-color: white !important;
+        color: black !important;
+        border: none;
+    }
+
+    .dropdown {
+        margin-bottom: 35px;
+        border: 1px lightgray;
+    }
+
+    .dropdown-button {
+        background-color: white;
+        color: black;
+    }
+
+    .dropdown-menu {
+        max-height: 200px;
+        /* Adjust the max-height as needed */
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+        width: 100%;
+    }
+
+    .dropdown-menu::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .dropdown-menu::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+</style>
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
@@ -30,155 +68,234 @@
                 <form [formGroup]="formData" (ngSubmit)="sendFormData(formData)">
                     <div class="ltn__tab-menu ltn__tab-menu-3 ltn__tab-menu-top-right-- text-uppercase--- text-center">
                         <div class="nav">
-                            <a [class.active.show]="currentTab === 'liton_tab_3_1'" data-toggle="tab" href="#liton_tab_3_1" (click)="switchTab('liton_tab_3_1')">1. Personal information</a>
-                            <a [class.active.show]="currentTab === 'liton_tab_3_2'" data-toggle="tab" href="#liton_tab_3_2" (click)="switchTab('liton_tab_3_2'); ShippingOnClick()">2. Shipping Address</a>
-                            <a [class.active.show]="currentTab === 'liton_tab_3_3'" data-toggle="tab" href="#liton_tab_3_3" (click)="switchTab('liton_tab_3_3')">3. Order information</a>
-                          </div>
+                            <a [class.active.show]="currentTab === 'liton_tab_3_1'" data-toggle="tab"
+                                href="#liton_tab_3_1" (click)="switchTab('liton_tab_3_1')">1. Personal information</a>
+                            <a [class.active.show]="currentTab === 'liton_tab_3_2'" data-toggle="tab"
+                                href="#liton_tab_3_2" (click)="switchTab('liton_tab_3_2'); ShippingOnClick()">2.
+                                Shipping Address</a>
+                            <a [class.active.show]="currentTab === 'liton_tab_3_3'" data-toggle="tab"
+                                href="#liton_tab_3_3" (click)="switchTab('liton_tab_3_3')">3. Order information</a>
+                        </div>
                     </div>
-                    <div class="tab-content"  >
-                        <div class="tab-pane fade show active" [class.show.active]="currentTab === 'liton_tab_3_1'" id="liton_tab_3_1">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" [class.show.active]="currentTab === 'liton_tab_3_1'"
+                            id="liton_tab_3_1">
                             <div class="ltn__apartments-tab-content-inner">
                                 <div class="row">
-                                        <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
-                                            <input type="text" name="ltn__name" formControlName="CompanyName" placeholder="*Company Name (mandatory)">
-                                            <div *ngIf="formData.get('CompanyName')?.invalid && formData.get('CompanyName')?.touched" class="alert-warning">
-                                                <div *ngIf="formData.get('CompanyName')?.hasError('required')" class="alert-warning">Company Name is required</div>
-                                            </div>
+                                    <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
+                                        <input type="text" name="ltn__name" formControlName="CompanyName"
+                                            placeholder="*Company Name (mandatory)">
+                                        <div *ngIf="formData.get('CompanyName')?.invalid && formData.get('CompanyName')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('CompanyName')?.hasError('required')"
+                                                class="alert-warning">Company Name is required</div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
-                                            <input type="text" name="ltn__name" formControlName="Email" placeholder="*Email (mandatory)">
-                                            <div *ngIf="formData.get('Email')?.invalid && formData.get('Email')?.touched" class="alert-warning">
-                                                <div *ngIf="formData.get('Email')?.hasError('required')" class="alert-warning">Email is required</div>
-                                            </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
+                                        <input type="text" name="ltn__name" formControlName="Email"
+                                            placeholder="*Email (mandatory)">
+                                        <div *ngIf="formData.get('Email')?.invalid && formData.get('Email')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('Email')?.hasError('required')"
+                                                class="alert-warning">Email is required</div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
-                                            <input type="text" name="ltn__name" formControlName="Website" placeholder="Website">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
+                                        <input type="text" name="ltn__name" formControlName="Website"
+                                            placeholder="Website">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
+                                        <input type="text" name="ltn__name" formControlName="Phone"
+                                            placeholder="*Phone (mandatory)">
+                                        <div *ngIf="formData.get('Phone')?.invalid && formData.get('Phone')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('Phone')?.hasError('required')"
+                                                class="alert-warning">Phone is required</div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
-                                            <input type="text" name="ltn__name" formControlName="Phone" placeholder="*Phone (mandatory)">
-                                            <div *ngIf="formData.get('Phone')?.invalid && formData.get('Phone')?.touched" class="alert-warning">
-                                                <div *ngIf="formData.get('Phone')?.hasError('required')" class="alert-warning">Phone is required</div>
-                                            </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
+                                        <input type="text" name="ltn__name" formControlName="ApplicantsName"
+                                            placeholder="*Applicant's name (mandatory)">
+                                        <div *ngIf="formData.get('ApplicantsName')?.invalid && formData.get('ApplicantsName')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('ApplicantsName')?.hasError('required')"
+                                                class="alert-warning">Applicant's Name is required</div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
-                                            <input type="text" name="ltn__name" formControlName="ApplicantsName" placeholder="*Applicant's name (mandatory)">
-                                            <div *ngIf="formData.get('ApplicantsName')?.invalid && formData.get('ApplicantsName')?.touched" class="alert-warning">
-                                                <div *ngIf="formData.get('ApplicantsName')?.hasError('required')" class="alert-warning">Applicant's Name is required</div>
-                                            </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
+                                        <input type="text" name="ltn__name" formControlName="ApplicantsPhone"
+                                            placeholder="*Applicant's phone (mandatory)">
+                                        <div *ngIf="formData.get('ApplicantsPhone')?.invalid && formData.get('ApplicantsPhone')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('ApplicantsPhone')?.hasError('required')"
+                                                class="alert-warning">Applicant's Phone is required</div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 input-item input-item-textarea ltn__custom-icon">
-                                            <input type="text" name="ltn__name" formControlName="ApplicantsPhone" placeholder="*Applicant's phone (mandatory)">
-                                            <div *ngIf="formData.get('ApplicantsPhone')?.invalid && formData.get('ApplicantsPhone')?.touched" class="alert-warning">
-                                                <div *ngIf="formData.get('ApplicantsPhone')?.hasError('required')" class="alert-warning">Applicant's Phone is required</div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="input-item input-item-textarea ltn__custom-icon">
+                                    </div>
+                                    <!-- <div class="input-item input-item-textarea ltn__custom-icon">
                                             <textarea name="ltn__message" placeholder="Description"></textarea>
                                         </div> -->
                                 </div>
                                 <div class="btn-wrapper text-center--- mt-0">
                                     <!-- <button type="submit" class="btn theme-btn-1 btn-effect-1 text-uppercase" >Next Step</button> -->
-                                    <button type="button" class="btn theme-btn-1 btn-effect-1 text-uppercase" (click)="nextTab(); ShippingOnClick()">Next Step</button>
+                                    <button type="button" class="btn theme-btn-1 btn-effect-1 text-uppercase"
+                                        (click)="nextTab(); ShippingOnClick()">Next Step</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" [class.show.active]="currentTab === 'liton_tab_3_2'" id="liton_tab_3_2">
+                        <div class="tab-pane fade" [class.show.active]="currentTab === 'liton_tab_3_2'"
+                            id="liton_tab_3_2">
                             <div class="ltn__product-tab-content-inner">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6">
+                                    <div class="col-xl-6 col-lg-6">
                                       <div *ngIf="countriesLoaded" class="input-item">
-                                        <select class="changeSelect ng-pristine ng-invalid ng-touched" formControlName="Country" (ngModelChange)="onCountryChange($event)" name="country">
-                                          <option value="">Select a country</option>
-                                          <option *ngFor="let country of countries" [value]="country.countryCode + '-' + country.countryName">{{ country.countryCode }} - {{ country.countryName }}</option>
-                                        </select>
+                                        <div class="dropdown">
+                                          <button class="col-lg-12 col-xl-12 btn btn-secondary dropdown-toggle dropdown-button" type="button" id="countryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ selectedCountry ? selectedCountry : 'Select a country' }}
+                                          </button>
+                                          <div class="dropdown-menu" aria-labelledby="countryDropdown">
+                                            <a class="dropdown-item" *ngFor="let country of countries" (click)="onCountryChange(country.countryCode + '-' + country.countryName); selectedCountry = country.countryCode + '-' + country.countryName">
+                                              {{ country.countryCode }} - {{ country.countryName }}
+                                            </a>
+                                          </div>
+                                        </div>
                                       </div>
-                                    </div>                                      
-                                    <div class="col-lg-6 col-md-6">
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6">
                                       <div class="input-item" *ngIf="citiesLoaded">
-                                        <select class="changeSelect ng-pristine ng-invalid ng-touched" formControlName="City" name="city">
-                                          <option value="">Select a city</option>
-                                          <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-                                        </select>
+                                        <div class="dropdown">
+                                          <button class="col-lg-12 col-xl-12 btn btn-secondary dropdown-toggle dropdown-button" type="button" id="cityDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ selectedCity ? selectedCity : 'Select a city' }}
+                                          </button>
+                                          <div class="dropdown-menu" aria-labelledby="cityDropdown">
+                                            <a class="dropdown-item" *ngFor="let city of cities" (click)="onCityChange(city); selectedCity = city">
+                                              {{ city }}
+                                            </a>
+                                          </div>
+                                        </div>
                                       </div>
-                                    </div>                                      
+                                    </div>
                                   </div>
+                                  
+                                  
+
+
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-item input-item-textarea ltn__custom-icon">
-                                            <input type="text" name="ltn__name" formControlName="Area" placeholder="Area">
+                                            <input type="text" name="ltn__name" formControlName="Area"
+                                                placeholder="Area">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-item input-item-textarea ltn__custom-icon">
-                                            <input type="text" name="ltn__name" formControlName="DetailedAddress" placeholder="Detailed Address">
+                                            <input type="text" name="ltn__name" formControlName="DetailedAddress"
+                                                placeholder="Detailed Address">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="btn-wrapper text-center--- mt-0">
                                 <!-- <button type="submit" class="btn theme-btn-1 btn-effect-1 text-uppercase" >Next Step</button> -->
-                                <button type="button" class="btn theme-btn-1 btn-effect-1 text-uppercase" (click)="prevTab()">Prev Step</button>
-                                <button type="button" class="btn theme-btn-1 btn-effect-1 text-uppercase" (click)="nextTab()">Next Step</button>
-                              </div>
+                                <button type="button" class="btn theme-btn-1 btn-effect-1 text-uppercase"
+                                    (click)="prevTab()">Prev Step</button>
+                                <button type="button" class="btn theme-btn-1 btn-effect-1 text-uppercase"
+                                    (click)="nextTab()">Next Step</button>
+                            </div>
                         </div>
-                        <div class="tab-pane fade" [class.show.active]="currentTab === 'liton_tab_3_3'" id="liton_tab_3_3">
+                        <div class="tab-pane fade" [class.show.active]="currentTab === 'liton_tab_3_3'"
+                            id="liton_tab_3_3">
                             <div>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
-                                        <h6>CardboardType</h6>
-                                        <div>
-                                            <select formControlName="CardboardType" (change)="eventChangeCardboard($event)" class="changeSelect">
-                                                <option *ngFor="let cardboard of CardboardTypeDDL" [value]="cardboard">{{ cardboard }}</option>
-                                            </select>
-                                            <div *ngIf="formData.get('CardboardType')?.invalid && formData.get('CardboardType')?.touched" class="alert-warning">
-                                                <div *ngIf="formData.get('CardboardType')?.hasError('required')" class="alert-warning">Cardboard Type is required</div>
-                                            </div>
+                                      <div>
+                                        <div class="dropdown">
+                                          <button class="col-lg-12 col-xl-12 btn btn-secondary dropdown-toggle dropdown-button" type="button" id="cardboardDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ selectedCardBoard || 'Select Cardboard Type' }}
+                                          </button>
+                                          <div class="dropdown-menu" aria-labelledby="cardboardDropdown">
+                                            <button type="button" class="dropdown-item" *ngFor="let cardboard of CardboardTypeDDL" (click)="eventChangeCardboard(cardboard); formData.get('CardboardType')?.markAsTouched();">{{ cardboard }}</button>
+                                          </div>
                                         </div>
+                                        <div *ngIf="formData.get('CardboardType')?.invalid && formData.get('CardboardType')?.touched" class="alert-warning">
+                                          <div *ngIf="formData.get('CardboardType')?.hasError('required')" class="alert-warning">Cardboard Type is required</div>
+                                        </div>
+                                      </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
-                                        <h6>CutType</h6>
-                                        <div>
-                                            <select formControlName="CutTypes" (change)="eventChangeCut($event)" class="changeSelect">
-                                                <option *ngFor="let cuttype of CutTypesDDL" [value]="cuttype">{{ cuttype }}</option>
-                                            </select>
-                                            <div *ngIf="formData.get('CutTypes')?.invalid && formData.get('CutTypes')?.touched" class="alert-warning">
-                                                <div *ngIf="formData.get('CutTypes')?.hasError('required')" class="alert-warning">Cut Types is required</div>
-                                            </div>
+                                      <div>
+                                        <div class="dropdown">
+                                          <button class="col-lg-12 col-xl-12 btn btn-secondary dropdown-toggle dropdown-button" type="button" id="cutDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ selectedCutType || 'Select Cut Type' }}
+                                          </button>
+                                          <div class="dropdown-menu" aria-labelledby="cutDropdown">
+                                            <button type="button" class="dropdown-item" *ngFor="let cuttype of CutTypesDDL" (click)="eventChangeCut(cuttype); formData.get('CutTypes')?.markAsTouched();">{{ cuttype }}</button>
+                                          </div>
+                                        </div>
+                                        <div *ngIf="formData.get('CutTypes')?.invalid && formData.get('CutTypes')?.touched" class="alert-warning">
+                                          <div *ngIf="formData.get('CutTypes')?.hasError('required')" class="alert-warning">Cut Types is required</div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                  
+                                  
+                                  
+                                  
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 input-item input-item-textarea">
+                                        <input class="col-lg-12" type="text" name="ltn__name"
+                                            formControlName="LengthAndDiameter"
+                                            placeholder="*Length And Diameter (mandatory)">
+                                        <div *ngIf="formData.get('LengthAndDiameter')?.invalid && formData.get('LengthAndDiameter')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('LengthAndDiameter')?.hasError('required')"
+                                                class="alert-warning">Length And Diameter is required</div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                        <div class="col-lg-6 col-md-6 input-item input-item-textarea">
-                                            <input class="col-lg-12" type="text" name="ltn__name" formControlName="LengthAndDiameter" placeholder="*Length And Diameter (mandatory)">
-                                            <div *ngIf="formData.get('LengthAndDiameter')?.invalid && formData.get('LengthAndDiameter')?.touched" class="alert-warning">
-                                                <div *ngIf="formData.get('LengthAndDiameter')?.hasError('required')" class="alert-warning">Length And Diameter is required</div>
-                                            </div>
+                                    <div class="col-lg-6 col-md-6 input-item input-item-textarea">
+                                        <input class="col-lg-12" type="text" name="ltn__name" formControlName="Width"
+                                            placeholder="*Width (mandatory)">
+                                        <div *ngIf="formData.get('Width')?.invalid && formData.get('Width')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('Width')?.hasError('required')"
+                                                class="alert-warning">Width is
+                                                required</div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 input-item input-item-textarea">
-                                            <input class="col-lg-12" type="text" name="ltn__name" formControlName="Width" placeholder="*Width (mandatory)">
-                                            <div *ngIf="formData.get('Width')?.invalid && formData.get('Width')?.touched" class="alert-warning">
-                                                <div *ngIf="formData.get('Width')?.hasError('required')" class="alert-warning">Width is required</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
+                                    </div>
+                                    <div class="col-12">
                                         <h6>Quantity Type</h6>
-                                            <div class="col-lg-6 col-md-6">
-                                                <input type="radio" name="QuantityType" value="Grams" formControlName="QuantityType" /> Grams
+                                        <div class="col-lg-6 col-md-6">
+                                            <input type="radio" name="QuantityType" value="Grams"
+                                                formControlName="QuantityType" />
+                                            Grams
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <input type="radio" name="QuantityType" value="Tons"
+                                                formControlName="QuantityType" />
+                                            Tons
+                                        </div>
+                                        <div *ngIf="formData.get('QuantityType')?.invalid && formData.get('QuantityType')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('QuantityType')?.hasError('required')"
+                                                class="alert-warning">
+                                                Quantity Type is required</div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 input-item input-item-textarea ">
+                                            <input type="text" name="ltn__name" formControlName="Quantity"
+                                                placeholder="*Quantity (mandatory)">
+                                            <div *ngIf="formData.get('Quantity')?.invalid && formData.get('Quantity')?.touched"
+                                                class="alert-warning">
+                                                <div *ngIf="formData.get('Quantity')?.hasError('required')"
+                                                    class="alert-warning">
+                                                    Quantity is required</div>
                                             </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <input type="radio" name="QuantityType" value="Tons" formControlName="QuantityType" /> Tons
-                                            </div>
-                                            <div *ngIf="formData.get('QuantityType')?.invalid && formData.get('QuantityType')?.touched" class="alert-warning">
-                                                <div *ngIf="formData.get('QuantityType')?.hasError('required')" class="alert-warning">Quantity Type is required</div>
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 input-item input-item-textarea ">
-                                                <input type="text" name="ltn__name" formControlName="Quantity" placeholder="*Quantity (mandatory)">
-                                                <div *ngIf="formData.get('Quantity')?.invalid && formData.get('Quantity')?.touched" class="alert-warning">
-                                                    <div *ngIf="formData.get('Quantity')?.hasError('required')" class="alert-warning">Quantity is required</div>
-                                                </div>
-                                            </div>
-                                        <div class="col-lg-12 col-md-12 input-item input-item-textarea ltn__custom-icon">
-                                            <input type="text" name="ltn__name" formControlName="Notes" placeholder="Notes">
+                                        </div>
+                                        <div
+                                            class="col-lg-12 col-md-12 input-item input-item-textarea ltn__custom-icon">
+                                            <input type="text" name="ltn__name" formControlName="Notes"
+                                                placeholder="Notes">
                                         </div>
                                     </div>
                                 </div>
@@ -187,7 +304,8 @@
                                     contact you to confirm your actual appointment details.
                                 </div> -->
                                 <div class="btn-wrapper text-center--- mt-30">
-                                    <button type="button" class="btn theme-btn-1 btn-effect-1 text-uppercase" (click)="prevTab()">Prev Step</button>
+                                    <button type="button" class="btn theme-btn-1 btn-effect-1 text-uppercase"
+                                        (click)="prevTab()">Prev Step</button>
                                     <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">Submit
                                         Order</button>
                                 </div>
@@ -201,9 +319,9 @@
 </div>
 <script>
     console.log("ssss")
-    $(document).ready(function(){
+    $(document).ready(function () {
         console.log($(".nice-select"))
-     $(".nice-select").hide(); 
- });
+        $(".nice-select").hide();
+    });
 </script>
 <!-- APPOINTMENT AREA END -->
