@@ -112,8 +112,10 @@ export class JobsComponent implements OnInit {
             if (error.status === 200) {
             console.log(error)
               alert("Candidate request has been sent successfully")
-              this.router.navigateByUrl('/home');
-            }
+              this.router.navigate(['/home'])
+              .then(() => {
+                window.location.reload();
+              });            }
             else{
             console.log(error.error[0])
               alert(error.error[0]);

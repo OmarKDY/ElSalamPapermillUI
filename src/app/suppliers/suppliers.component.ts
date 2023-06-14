@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { SuppliersService } from '../services/suppliers.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
@@ -18,7 +18,7 @@ export class SuppliersComponent implements OnInit {
   formData!: FormGroup;
   countries: any[] = [];
   countriesLoaded: boolean = false;
-  constructor(private suppliersService: SuppliersService, private formBuilder: FormBuilder, private _location: Location, private router: Router) {
+  constructor(private suppliersService: SuppliersService, private formBuilder: FormBuilder, private _location: Location, private router: Router,private cdr: ChangeDetectorRef) {
 
   }
 
@@ -83,7 +83,10 @@ export class SuppliersComponent implements OnInit {
           if (error.status === 200) {
             console.log(error);
             alert("Supplier Created successfully");
-            this.router.navigateByUrl('/home');
+            this.router.navigate(['/home'])
+            .then(() => {
+              window.location.reload();
+            });
           } else {
             console.log(error.error[0]);
             alert(error.error[0]);

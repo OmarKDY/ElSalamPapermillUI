@@ -143,7 +143,10 @@ export class OrderingComponent implements OnInit {
         error => {
           if (error.status == 200) {
             alert("Order added successfully. An email has been sent to us. We will review your order and contact you.");
-            this.router.navigateByUrl('/home');
+            this.router.navigate(['/home'])
+            .then(() => {
+              window.location.reload();
+            });
           } else {
             alert("Please fill the required fields.");
           }
