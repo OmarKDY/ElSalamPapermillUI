@@ -15,6 +15,7 @@ export class SuppliersComponent implements OnInit {
   SupplierList: any[] = [];
   selectedSupplier: any;
   selectedCountry: any = '';
+  filteredCountries: any[] = [];
   formData!: FormGroup;
   countries: any[] = [];
   countriesLoaded: boolean = false;
@@ -33,6 +34,10 @@ export class SuppliersComponent implements OnInit {
       Material: ['', Validators.required],
       SupplierMsg: ''
     });
+    this.onDDL();
+  }
+
+  onDDL(){
     this.suppliersService.getCountries().subscribe(
       response => {
         this.countries = response.data.geonames.map((obj: any) => ({
@@ -46,6 +51,19 @@ export class SuppliersComponent implements OnInit {
         console.error('Error fetching countries:', error);
       }
     );
+  }
+  onSearch(event: any): void {
+    debugger
+    console.log(event)
+    if (event.key.length >= 1) {
+      this.filteredCountries = this.countries.filter(country => {
+        const fullCountryName = `${country.countryCode} - ${country.countryName}`;
+        return fullCountryName.toLowerCase().startsWith(event.key.toLowerCase());
+      });
+      this.countries = this.filteredCountries;
+    } else {
+      this.countries = this.countries
+    }
   }
 
   getSuppliers() {

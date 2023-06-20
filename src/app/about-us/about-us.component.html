@@ -24,10 +24,47 @@
     height: 375px;
     background-color: var(--white);
 }
+.btn-secondary:hover {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .btn-secondary:focus {
+        background-color: white !important;
+        color: black !important;
+        border: none;
+    }
+
+    .dropdown {
+        margin-bottom: 35px;
+        border: 1px lightgray;
+    }
+
+    .dropdown-button {
+        background-color: white;
+        color: black;
+    }
+
+    .dropdown-menu {
+        max-height: 200px;
+        /* Adjust the max-height as needed */
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+        width: 100%;
+    }
+
+    .dropdown-menu::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .dropdown-menu::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
 </style>
 <div [ngClass]="{'hide': showProduct}">
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bg="assets/images/bg/14.jpg">
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image-header " data-bg="assets/images/bg/14.jpg">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -592,47 +629,82 @@
 
                          <div class="ltn__form-box contact-form-box box-shadow white-bg mt-50">
                             <h4 class="title-2">Contact for any Inquiry</h4>
-                            <form id="contact-form" action="mail.php" method="post">
+                            <form [formGroup]="formData" (ngSubmit)="addProductInquiry(formData)">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-item input-item-name ltn__custom-icon">
-                                            <input type="text" name="name" placeholder="Enter your name">
+                                            <input type="text" name="ClientName" formControlName="ClientName"
+                                            placeholder="*Client Name (mandatory)">
+                                        <div *ngIf="formData.get('ClientName')?.invalid && formData.get('ClientName')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('ClientName')?.hasError('required')"
+                                                class="alert-warning">Client Name is required</div>
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="input-item input-item-email ltn__custom-icon">
-                                            <input type="email" name="email" placeholder="Enter email address">
+                                        <div class="input-item input-item-name ltn__custom-icon">
+                                            <input type="text" name="ClientEmail" formControlName="ClientEmail"
+                                            placeholder="*Client Email (mandatory)">
+                                        <div *ngIf="formData.get('ClientEmail')?.invalid && formData.get('ClientEmail')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('ClientEmail')?.hasError('required')"
+                                                class="alert-warning">Client Email is required</div>
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="input-item">
+                                        <div>
+                                            <div class="dropdown">
+                                              <button class="col-lg-12 col-xl-12 btn btn-transparent dropdown-toggle dropdown-button" type="button" id="producttypeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {{ selectedproductType || 'Select Product Type' }}
+                                              </button>
+                                              <div class="dropdown-menu" aria-labelledby="producttypeDropdown">
+                                                <button type="button" class="dropdown-item" (click)="eventChangeProductType($event); formData.get('ProductType')?.markAsTouched();" value="Coated Duplex Board">Coated Duplex Board</button>
+                                                <button type="button" class="dropdown-item" (click)="eventChangeProductType($event); formData.get('ProductType')?.markAsTouched();" value="Grey Board">Grey Board</button>
+                                                <button type="button" class="dropdown-item" (click)="eventChangeProductType($event); formData.get('ProductType')?.markAsTouched();" value="Bristol Board">Bristol Board</button>
+                                                <button type="button" class="dropdown-item" (click)="eventChangeProductType($event); formData.get('ProductType')?.markAsTouched();" value="Manilla Board">Manilla Board</button>
+                                                <button type="button" class="dropdown-item" (click)="eventChangeProductType($event); formData.get('ProductType')?.markAsTouched();" value="Lima Print">Lima Print</button>
+                                                <button type="button" class="dropdown-item" (click)="eventChangeProductType($event); formData.get('ProductType')?.markAsTouched();" value="White Top">White Top</button>
+                                                <button type="button" class="dropdown-item" (click)="eventChangeProductType($event); formData.get('ProductType')?.markAsTouched();" value="White Top ECO">White Top ECO</button>
+                                            </div>
+                                            </div>
+                                            <div *ngIf="formData.get('ProductType')?.invalid && formData.get('ProductType')?.touched" class="alert-warning">
+                                              <div *ngIf="formData.get('ProductType')?.hasError('required')" class="alert-warning">Product Type is required</div>
+                                            </div>
+                                          </div>
+                                        <!-- <div class="input-item">
                                             <select class="nice-select">
-                                                <option>Select Service Type</option>
-                                                <option>Property Management </option>
-                                                <option>Mortgage Service </option>
-                                                <option>Consulting Service</option>
-                                                <option>Home Buying</option>
-                                                <option>Home Selling</option>
-                                                <option>Escrow Services</option>
+                                                <option>Coated Duplex Board</option>
+                                                <option>Grey Board</option>
+                                                <option>Bristol Board</option>
+                                                <option>Manilla Board</option>
+                                                <option>Lima Print</option>
+                                                <option>White Top</option>
+                                                <option>White Top ECO</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-item input-item-phone ltn__custom-icon">
-                                            <input type="text" name="phone" placeholder="Enter phone number">
+                                            <input type="text" name="ClientMobile" formControlName="ClientMobile"
+                                            placeholder="*Client Mobile (mandatory)">
+                                        <div *ngIf="formData.get('ClientMobile')?.invalid && formData.get('ClientMobile')?.touched"
+                                            class="alert-warning">
+                                            <div *ngIf="formData.get('ClientMobile')?.hasError('required')"
+                                                class="alert-warning">Client Mobile is required</div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="input-item input-item-textarea ltn__custom-icon">
-                                    <textarea name="message" placeholder="Enter message"></textarea>
+                                    <textarea name="ClientMsg" placeholder="Enter message" formControlName="ClientMsg"></textarea>
                                 </div>
-                                <p><label class="input-info-save mb-0"><input type="checkbox" name="agree"> Save my
+                                <!-- <p><label class="input-info-save mb-0"><input type="checkbox" name="agree"> Save my
                                         name,
-                                        email, and website in this browser for the next time I comment.</label></p>
+                                        email, and website in this browser for the next time I comment.</label></p> -->
                                 <div class="btn-wrapper mt-0">
-                                    <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">get an
-                                        free
-                                        service</button>
+                                    <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">Send Inquiry</button>
                                 </div>
                                 <p class="form-messege mb-0 mt-20"></p>
                             </form>

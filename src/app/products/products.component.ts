@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductInquiriesService } from '../services/productInquiry.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 interface MyObject {
   productImg: string;
@@ -15,6 +19,7 @@ interface MyObject {
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
+  formData: FormGroup;
   products: MyObject[] = [
     { productImg: "assets/images/product/CoatedDuplexBoard.jpg",
       productName: "Coated Duplex Board", 
@@ -95,9 +100,44 @@ Applications: [
 }
   ];
   selectedProduct: MyObject | null = null;
+  selectedproductType: string = '';
   showProduct: boolean = false;
 
+  constructor(private productInquiriesService: ProductInquiriesService, private formBuilder: FormBuilder, private router: Router) { 
+    this.formData = this.formBuilder.group({
+      ClientName: ['', Validators.required],
+      ClientEmail: ['', [Validators.required, Validators.email]],
+      ProductType: '',
+      ClientMobile: ['', Validators.required],
+      ClientMsg: ''
+    });
+  }
+
   ngOnInit() {
+  }
+
+  addProductInquiry(formData: any): void {
+    this.productInquiriesService.addProductInquiry(formData.value)
+    .subscribe(
+      response => {
+      },
+      error => {
+        if (error.status == 200) {
+          alert("Product Inquiry sent successfully. An email has been sent to us. We will review your inquiry and contact you.");
+          this.router.navigate(['/home'])
+          .then(() => {
+            window.location.reload();
+          });
+        } else {
+          alert("Please fill the required fields.");
+        }
+      }
+    );
+  }
+  eventChangeProductType(event: any) {
+    this.selectedproductType = event.target.innerText;
+    console.log(this.selectedproductType);
+    this.formData.controls['ProductType'].setValue(event.target.innerText);
   }
 
   showProductDetails(product: MyObject, showProduct: boolean) {

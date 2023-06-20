@@ -15,6 +15,7 @@ export class JobsComponent implements OnInit {
   candidateList: any[] = [];
   selectedCandidate: any;
   selectedCountry: any = '';
+  filteredCountries: any[] = [];
   formData!: FormGroup;
   countries: any[] = [];
   countriesLoaded: boolean = false;
@@ -34,7 +35,10 @@ export class JobsComponent implements OnInit {
       CandidateMsg: '',
       CandidateCV: ['']
     });
-    debugger
+    this.onDDL();
+  }
+
+  onDDL(){
     this.jobsService.getCountries().subscribe(
       response => {
         this.countries = response.data.geonames.map((obj: any) => ({
@@ -49,22 +53,19 @@ export class JobsComponent implements OnInit {
       }
     );
   }
-
-  // ShippingOnClick() {
-  //   from(this.jobsService.getCountries()).subscribe(
-  //     response => {
-  //       this.countries = response.data.geonames.map((obj: any) => ({
-  //         countryName: obj.countryName,
-  //         countryCode: obj.countryCode
-  //       }));
-  //       this.countriesLoaded = true;
-
-  //     },
-  //     error => {
-  //       console.error('Error fetching countries:', error);
-  //     }
-  //   );
-  // }
+  onSearch(event: any): void {
+    debugger
+    console.log(event)
+    if (event.key.length >= 1) {
+      this.filteredCountries = this.countries.filter(country => {
+        const fullCountryName = `${country.countryCode} - ${country.countryName}`;
+        return fullCountryName.toLowerCase().startsWith(event.key.toLowerCase());
+      });
+      this.countries = this.filteredCountries;
+    } else {
+      this.countries = this.countries
+    }
+  }
 
   getCandidates() {
     this.jobsService.getCandidateList().subscribe(

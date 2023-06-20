@@ -36,34 +36,15 @@
     .dropdown-menu::-webkit-scrollbar-thumb {
         background-color: transparent;
     }
+
+    .dropdown .btn:after {
+        right: 14px;
+        top: 25px;
+    }
 </style>
-<!-- TEAM AREA START (Team - 3) -->
-<div class="ltn__team-area pt-120--- pb-90">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div *ngFor="let Supplier of SupplierList" class="col-lg-4 col-sm-6">
-                <div (click)="getSupplierDetails(Supplier.supplierId)"
-                    class="ltn__team-item ltn__team-item-3 ltn__team-item-3-2">
-                    <div class="team-info">
-                        <h4><a></a>{{Supplier.supplierFN +" "+ Supplier.supplierLN}}</h4>
-                        <h6 class="ltn__secondary-color">{{Supplier.supplierAddress}}</h6>
-                        <div class="ltn__social-media">
-                            <ul>
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- TEAM AREA END -->
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bg="assets/images/bg/14.jpg">
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image-header" data-bg="assets/images/bg/14.jpg">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -149,18 +130,25 @@
 
                             <div class="col-md-6">
                                 <div *ngIf="countriesLoaded" class="input-item">
-                                  <div class="dropdown">
-                                    <button class="col-lg-12 col-xl-12 btn btn-transparent dropdown-toggle dropdown-button" type="button" id="countryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      {{ selectedCountry ? selectedCountry : 'Select a country' }}
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="countryDropdown">
-                                      <button type="button" class="dropdown-item" *ngFor="let country of countries" (click)="onCountrySelect(country.countryCode + '-' + country.countryName)">
-                                        {{ country.countryCode }} - {{ country.countryName }}
-                                      </button>
+                                    <div class="dropdown">
+                                        <button
+                                            class="col-lg-12 col-xl-12 btn btn-transparent dropdown-toggle dropdown-button"
+                                            (click)="onDDL()" (keypress)="onSearch($event)" type="button"
+                                            id="countryDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            {{ selectedCountry ? selectedCountry : 'Select a country' }}
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="countryDropdown">
+                                            <button type="button" class="dropdown-item"
+                                                *ngFor="let country of countries"
+                                                (click)="onCountrySelect(country.countryCode + '-' + country.countryName)">
+                                                {{ country.countryCode }} - {{ country.countryName }}
+                                            </button>
+                                        </div>
                                     </div>
-                                  </div>
                                 </div>
-                              </div>
+                            </div>
+
                             <div class="col-md-6">
                                 <input type="text" name="ltn__name" formControlName="Material"
                                     placeholder="*Material (mandatory)">

@@ -17,6 +17,8 @@ export class OrderingComponent implements OnInit {
   currentTab: string = 'liton_tab_3_1';
   countries: any[] = [];
   cities: string[] = [];
+  filteredCountries: any[] = [];
+  filteredCities: string[] = [];
   selectedCountry: any = '';
   countriesLoaded: boolean = false;
   citiesLoaded: boolean = false;
@@ -55,9 +57,51 @@ export class OrderingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.onDDL();
   }
 
-  
+  onDDL(){
+    this.apiService.getCountries().subscribe(
+      response => {
+        this.countries = response.data.geonames.map((obj: any) => ({
+          countryName: obj.countryName,
+          countryCode: obj.countryCode
+        }));
+        this.countriesLoaded = true;
+
+      },
+      error => {
+        console.error('Error fetching countries:', error);
+      }
+    );
+  }
+
+  onSearch(event: any): void {
+    debugger
+    console.log(event)
+    if (event.key.length >= 1) {
+      this.filteredCountries = this.countries.filter(country => {
+        const fullCountryName = `${country.countryCode} - ${country.countryName}`;
+        return fullCountryName.toLowerCase().startsWith(event.key.toLowerCase());
+      });
+      this.countries = this.filteredCountries;
+    } else {
+      this.countries = this.countries
+    }
+  }
+  onSearchCities(event: any): void {
+    debugger
+    console.log(event)
+    if (event.key.length >= 1) {
+      this.filteredCities = this.cities.filter(city => {
+        const fullCityName = `${city}`;
+        return fullCityName.toLowerCase().startsWith(event.key.toLowerCase());
+      });
+      this.cities = this.filteredCities;
+    } else {
+      this.cities = this.cities
+    }
+  }
   switchTab(tabId: string): void {
     const currentTabElement = document.getElementById(this.currentTab);
     const nextTabElement = document.getElementById(tabId);
@@ -129,13 +173,12 @@ export class OrderingComponent implements OnInit {
   }
   onCityChange(city: string){
     this.selectedCity = city
-  }
+  }  
+
   sendFormData(formData: any): void {
     formData.value.Country = this.selectedCountry;
     formData.value.City = this.selectedCity;
   
-    console.log(formData.value);
-    
     this.apiService.sendOrderReq(formData.value)
       .subscribe(
         response => {

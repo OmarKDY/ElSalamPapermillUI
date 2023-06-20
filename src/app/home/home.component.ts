@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-interface MyObject {
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ProductInquiriesService } from '../services/productInquiry.service';interface MyObject {
   productImg: string;
   productName: string;
   productUsage: string;
@@ -13,6 +15,7 @@ interface MyObject {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
+  formData: FormGroup;
   products: MyObject[] = [
     { productImg: "assets/images/product/CoatedDuplexBoard.jpg",
       productName: "Coated Duplex Board", 
@@ -93,10 +96,46 @@ Applications: [
 }
   ];
   selectedProduct: MyObject | null = null;
+  selectedproductType: string = '';
   showProduct: boolean = false;
+
+  constructor(private productInquiriesService: ProductInquiriesService, private formBuilder: FormBuilder, private router: Router) { 
+    this.formData = this.formBuilder.group({
+      ClientName: ['', Validators.required],
+      ClientEmail: ['', [Validators.required, Validators.email]],
+      ProductType: '',
+      ClientMobile: ['', Validators.required],
+      ClientMsg: ''
+    });
+  }
 
   ngOnInit() {
   }
+
+  addProductInquiry(formData: any): void {
+    this.productInquiriesService.addProductInquiry(formData.value)
+    .subscribe(
+      response => {
+      },
+      error => {
+        if (error.status == 200) {
+          alert("Product Inquiry sent successfully. An email has been sent to us. We will review your inquiry and contact you.");
+          this.router.navigate(['/home'])
+          .then(() => {
+            window.location.reload();
+          });
+        } else {
+          alert("Please fill the required fields.");
+        }
+      }
+    );
+  }
+  eventChangeProductType(event: any) {
+    this.selectedproductType = event.target.innerText;
+    console.log(this.selectedproductType);
+    this.formData.controls['ProductType'].setValue(event.target.innerText);
+  }
+
   showProductDetails(product: MyObject, showProduct: boolean) {
     if (product != null) {
       this.selectedProduct = product;

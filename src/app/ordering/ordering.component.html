@@ -36,11 +36,15 @@
     .dropdown-menu::-webkit-scrollbar-thumb {
         background-color: transparent;
     }
+    .dropdown .btn:after {
+        right: 14px;
+        top: 25px;
+    }
 </style>
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bg="img/bg/14.jpg">
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image-header " data-bg="assets/images/bg/14.jpg">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -71,7 +75,7 @@
                             <a [class.active.show]="currentTab === 'liton_tab_3_1'" data-toggle="tab"
                                 href="#liton_tab_3_1" (click)="switchTab('liton_tab_3_1')">1. Personal information</a>
                             <a [class.active.show]="currentTab === 'liton_tab_3_2'" data-toggle="tab"
-                                href="#liton_tab_3_2" (click)="switchTab('liton_tab_3_2'); ShippingOnClick()">2.
+                                href="#liton_tab_3_2" (click)="switchTab('liton_tab_3_2');">2.
                                 Shipping Address</a>
                             <a [class.active.show]="currentTab === 'liton_tab_3_3'" data-toggle="tab"
                                 href="#liton_tab_3_3" (click)="switchTab('liton_tab_3_3')">3. Order information</a>
@@ -138,7 +142,7 @@
                                 <div class="btn-wrapper text-center--- mt-0">
                                     <!-- <button type="submit" class="btn theme-btn-1 btn-effect-1 text-uppercase" >Next Step</button> -->
                                     <button type="button" class="btn theme-btn-1 btn-effect-1 text-uppercase"
-                                        (click)="nextTab(); ShippingOnClick()">Next Step</button>
+                                        (click)="nextTab();">Next Step</button>
                                 </div>
                             </div>
                         </div>
@@ -147,9 +151,9 @@
                             <div class="ltn__product-tab-content-inner">
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6">
-                                      <div *ngIf="countriesLoaded" class="input-item">
+                                      <div class="input-item">
                                         <div class="dropdown">
-                                          <button class="col-lg-12 col-xl-12 btn btn-transparent dropdown-toggle dropdown-button" type="button" id="countryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <button class="col-lg-12 col-xl-12 btn btn-transparent dropdown-toggle dropdown-button" (click)="ShippingOnClick()" (keypress)="onSearch($event)" type="button" id="countryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             {{ selectedCountry ? selectedCountry : 'Select a country' }}
                                           </button>
                                           <div class="dropdown-menu" aria-labelledby="countryDropdown">
@@ -161,9 +165,9 @@
                                       </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6">
-                                      <div class="input-item" *ngIf="citiesLoaded">
+                                      <div class="input-item">
                                         <div class="dropdown">
-                                          <button class="col-lg-12 col-xl-12 btn btn-transparent dropdown-toggle dropdown-button" type="button" id="cityDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <button class="col-lg-12 col-xl-12 btn btn-transparent dropdown-toggle dropdown-button" (click)="onCountryChange(selectedCountry)" (keypress)="onSearchCities($event)" type="button" id="cityDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             {{ selectedCity ? selectedCity : 'Select a city' }}
                                           </button>
                                           <div class="dropdown-menu" aria-labelledby="cityDropdown">
@@ -210,7 +214,7 @@
                                     <div class="col-lg-6 col-md-6">
                                       <div>
                                         <div class="dropdown">
-                                          <button class="col-lg-12 col-xl-12 btn btn-secondary dropdown-toggle dropdown-button" type="button" id="cardboardDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <button class="col-lg-12 col-xl-12 btn btn-transparent dropdown-toggle dropdown-button" type="button" id="cardboardDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             {{ selectedCardBoard || 'Select Cardboard Type' }}
                                           </button>
                                           <div class="dropdown-menu" aria-labelledby="cardboardDropdown">
@@ -225,7 +229,7 @@
                                     <div class="col-lg-6 col-md-6">
                                       <div>
                                         <div class="dropdown">
-                                          <button class="col-lg-12 col-xl-12 btn btn-secondary dropdown-toggle dropdown-button" type="button" id="cutDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <button class="col-lg-12 col-xl-12 btn btn-transparent dropdown-toggle dropdown-button" type="button" id="cutDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             {{ selectedCutType || 'Select Cut Type' }}
                                           </button>
                                           <div class="dropdown-menu" aria-labelledby="cutDropdown">
